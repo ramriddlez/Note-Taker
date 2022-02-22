@@ -39,12 +39,11 @@ app.get('/api/notes', (req, res) => {
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a review`);
 
-    // destructuring assignment for the items in req.body
-    const { 
+  
 }
 
 
 // app listening (starting server)
 
 app.listen(PORT, () =>
-    console.log(`App listening at http://localhost:${PORT} 🍆 `))
+    console.log(`App listening at http://localhost:${PORT} 🍆 `));
