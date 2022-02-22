@@ -16,7 +16,7 @@ app.use(express.static('public'));
 
 // define routes
 
-app.get('/', (req,res) =>
+app.get('/', (req, res) =>
     res.sendFile(path.join(__dirname, '/public/index.html'))
 );
 
@@ -28,48 +28,53 @@ app.get('/notes', (req, res) =>
 
 app.get('/api/notes', (req, res) => {
     fs.readFile('./db/db.json', 'utf-8', (err, data) => {
-    if (err) {
-        console.error(err);
-    } else {
-        const parsedNote = JSON.parse(data);
-        res.json(parsedNote);
-    }})
-});    
+        if (err) {
+            console.error(err);
+        } else {
+            const parsedNote = JSON.parse(data);
+            res.json(parsedNote);
+        }
+    })
+});
 //data persistence on POST
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a review`);
-    const { title, text, id } = req.body;
+    const { title, text } = req.body;
 
-    if (title && text && id) {
+    if (title && text) {
         const newNote = {
             title,
             text,
-            id :uuid(),
+            id: uuid(),
         };
-    
-//convert data into string so we can save it
-    const reviewNote = JSON.stringify(newNote);
-    
-    fs.writeFile (`./db/${newNote.title}.json`, reviewNote, (err) =>
-    err
-    ? console.error(err)
-    :console.log(
-        `note for ${newNote.title} has been successfully updated!`
-    )
-    );
 
-    const response = {
-        status: 'success',
-        body: newNote,
-    };
+        fs.readFile('./db/db.json', 'utf8', (err, data) => {
+            if (err) {
+                console.error(err);
+            } else {
+                const parsedNotes = JSON.parse(data);
 
-    console.log(response);
-    res.status(201).json(response);
-   } else {
-       res.status(500).json('Error in posting Note');
-   } 
-});
+                parsedNotes.push(newNote);
 
+                fs.writeFile(`./db/db.json`, JSON.stringify(parsedNotes, null, 4), (writeErr) =>
+                    writeErr
+                        ? console.error(err)
+                        : console.log(
+                            `note for ${newNote.title} has been successfully updated!`
+                        )
+                )};
+        })                        
+                const response = {
+                    status: 'success',
+                    body: newNote,
+                };
+
+                console.log(response);
+                res.status(201).json(response);
+     } else {
+                res.status(500).json('Error in posting Note');
+            }
+        });
 
 // app listening (starting server)
 
