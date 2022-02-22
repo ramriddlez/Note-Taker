@@ -35,15 +35,43 @@ app.get('/api/notes', (req, res) => {
         res.json(parsedNote);
     }})
 });    
-
+//data persistence on POST
 app.post('/api/notes', (req, res) => {
     console.info(`${req.method} request received to add a review`);
+    const { title, text, id } = req.body;
 
-  
-}
+    if (title && text && id) {
+        const newNote = {
+            title,
+            text,
+            id :uuid(),
+        };
+    
+//convert data into string so we can save it
+    const reviewNote = JSON.stringify(newNote);
+    
+    fs.writeFile (`./db/${newNote.title}.json`, reviewNote, (err) =>
+    err
+    ? console.error(err)
+    :console.log(
+        `note for ${newNote.title} has been successfully updated!`
+    )
+    );
+
+    const response = {
+        status: 'success',
+        body: newNote,
+    };
+
+    console.log(response);
+    res.status(201).json(response);
+   } else {
+       res.status(500).json('Error in posting Note');
+   } 
+});
 
 
 // app listening (starting server)
 
 app.listen(PORT, () =>
-    console.log(`App listening at http://localhost:${PORT} 🍆 `));
+    console.log(`App listening at http://localhost:${PORT} 🍆 `))
