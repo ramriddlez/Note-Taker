@@ -32,10 +32,16 @@ app.get('/api/notes', (req, res) => {
         console.error(err);
     } else {
         const parsedNote = JSON.parse(data);
-        res.json(JSON(parsedNote));
+        res.json(parsedNote);
     }})
 });    
 
+app.post('/api/notes', (req, res) => {
+    console.info(`${req.method} request received to add a review`);
+
+    // destructuring assignment for the items in req.body
+    const { 
+}
 
 
 // app listening (starting server)
