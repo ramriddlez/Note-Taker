@@ -11,7 +11,7 @@
 ## Description
 We are using Express.JS libraries to host our backend javascript code. The functionality is to allow users to enter notes in the client side, persist the data amongst a back-end JSON storage and retrieve the data among a simple click-and-retrieve function. Also, ive incorporated a DELETE function in case the USER wishes the delete the previously inputted data.
 ## Installation
-npm install -y
+npm install -y<br><br>
 npm start <br>
 ## Usage
 ![image](https://user-images.githubusercontent.com/96890575/155262302-f7916aeb-efb1-4930-b21f-7cbf66994e6c.png)
