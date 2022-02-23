@@ -74,14 +74,30 @@ app.post('/api/notes', (req, res) => {
      } else {
                 res.status(500).json('Error in posting Note');
             }
-        });
+});
 
 //BONUS: delete notes by ID reference
 
 app.delete('/api/notes/:id', (req, res) => {
-    
-    res.send('Got a DELETE request at /user')
-  })
+
+    //capture the 'id' parameter of the note the user wishes to delete
+
+    const deleteId = req.params.id;
+
+    //loop over the notes in db.json to see which id matches
+    for (let i = 0; i< parsedNotes.length; i++) {
+
+        if (deleteId === parsedNotes[i].id) {
+
+            // delete from array the notes:Id
+
+            parsedNotes.splice(i, 1);
+        }
+    }
+
+ //rewrite the new data in the db.json file     
+    fs.writeFile
+})
 
 
 
