@@ -2,8 +2,6 @@
 * [Description](#desc) <br>
 * [Installation](#install) <br>
 * [Usage](#usage) <br>
-* [Contributing](#contributing) <br>
-* [Tests](#tests) <br>
 * [License](#license) <br>
 * [Questions](#questions) <br>
 
