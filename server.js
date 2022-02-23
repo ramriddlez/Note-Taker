@@ -76,6 +76,24 @@ app.post('/api/notes', (req, res) => {
             }
         });
 
+//BONUS: delete notes by ID reference
+
+app.delete('/api/notes/:id', (req, res) => {
+    
+    res.send('Got a DELETE request at /user')
+  })
+
+
+
+
+
+
+
+
+
+
+
+
 // app listening (starting server)
 
 app.listen(PORT, () =>
