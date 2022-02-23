@@ -85,31 +85,28 @@ app.delete('/api/notes/:id', (req, res) => {
         if (err) {
             console.error(err);
         } else {
-            const parsedNote = JSON.parse(data);
-            res.json(parsedNote);
-        }
-    })
-    
+            
+            
+    const parsedData = JSON.parse(data);
+       
     //capture the 'id' parameter of the note the user wishes to delete
     const deleteId = req.params.id;
 
-
     //loop over the notes in db.json to see which id matches
-    for (let i = 0; i< parsedNotes.length; i++) {
+    for (let i = 0; i< parsedData.length; i++) {
 
-        if (deleteId === parsedNotes[i].id) {
+        if (deleteId === parsedData[i].id) {
 
             // delete from array the notes:Id
-            parsedNotes.splice(i, 1);
-        }
-    }
-
+            parsedData.splice(i, 1);
+        
  //rewrite the new data in the db.json file     
-    fs.writeFile('./db/db.json', JSON.stringify(parsedNotes), (err) =>
+    fs.writeFile('./db/db.json', JSON.stringify(parsedData), (err) =>
         err ? console.error(err) : console.log("success!"));
 
-    res.json(parsedNotes);    
+    res.json(parsedData);    
     
+}}}})
 });
 
 // app listening (starting server)
