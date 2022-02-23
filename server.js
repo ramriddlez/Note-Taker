@@ -96,19 +96,12 @@ app.delete('/api/notes/:id', (req, res) => {
     }
 
  //rewrite the new data in the db.json file     
-    fs.writeFile
-})
+    fs.writeFile('./db/db.json', JSON.stringify(parsedNotes), (err) =>
+        err ? console.error(err) : console.log("success!"));
 
-
-
-
-
-
-
-
-
-
-
+    res.json(parsedNotes);    
+    
+});
 
 // app listening (starting server)
 
