@@ -80,9 +80,19 @@ app.post('/api/notes', (req, res) => {
 
 app.delete('/api/notes/:id', (req, res) => {
 
-    //capture the 'id' parameter of the note the user wishes to delete
 
+    fs.readFile('./db/db.json', 'utf-8', (err, data) => {
+        if (err) {
+            console.error(err);
+        } else {
+            const parsedNote = JSON.parse(data);
+            res.json(parsedNote);
+        }
+    })
+    
+    //capture the 'id' parameter of the note the user wishes to delete
     const deleteId = req.params.id;
+
 
     //loop over the notes in db.json to see which id matches
     for (let i = 0; i< parsedNotes.length; i++) {
@@ -90,7 +100,6 @@ app.delete('/api/notes/:id', (req, res) => {
         if (deleteId === parsedNotes[i].id) {
 
             // delete from array the notes:Id
-
             parsedNotes.splice(i, 1);
         }
     }
